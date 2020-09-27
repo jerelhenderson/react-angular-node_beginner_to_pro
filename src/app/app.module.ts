@@ -12,7 +12,7 @@ import { TempComponent } from './temp/temp.component';
 import { RentalModule } from './rental/rental.module';
 
 const routes: Routes = [
-  {path: '', component: RentalComponent},
+  {path: '', redirectTo: '/rentals', pathMatch: 'full'},
   {path: 'temp', component: TempComponent}
 ]
 
