@@ -4,6 +4,7 @@ import { Rental } from "./rental.model";
 
 @Injectable()
 export class RentalService {
+
     private rentals: Rental[] = [{
         id: 1,
         title: "Center Apartment",
@@ -56,6 +57,19 @@ export class RentalService {
         shared: true,
         createdAt: "2017/12/24"
       }];
+
+    public getRentalById(rentalId: number): Observable<Rental> {
+
+      return new Observable<Rental>((observer) => {
+        setTimeout(() => {
+          const foundRental = this.rentals.find((rental) => {
+            return rental.id == rentalId;
+          });
+
+          observer.next(foundRental);
+          }, 500);
+      });
+    }
 
     public getRentals(): Observable<Rental[]> {
         const rentalObservable: Observable<Rental[]>= new Observable((observer) => {

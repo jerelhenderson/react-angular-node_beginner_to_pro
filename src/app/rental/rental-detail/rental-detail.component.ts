@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 import { Rental } from '../shared/rental.model';
 import { RentalService } from '../shared/rental.service';
 
@@ -10,14 +10,20 @@ import { RentalService } from '../shared/rental.service';
 })
 export class RentalDetailComponent implements OnInit {
 
-  constructor(private rentalService: RentalService, private router: Router, private route: ActivatedRoute) { }
-  rental: Rental[];
-  id: number;
+  constructor(private rentalService: RentalService, private route: ActivatedRoute) { }
+  rental: Rental;
 
-  ngOnInit(): void {
+  ngOnInit() {
     // .params is an Observable
     this.route.params.subscribe((params: Params) => {
-      this.id = +params['rentalId'];
+      this.getRental(params['rentalId']);
+    })
+  }
+
+  getRental(rentalId: number) {
+    this.rentalService.getRentalById(rentalId)
+    .subscribe((rental: Rental) => {
+      this.rental = rental;
     })
   }
 
