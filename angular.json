@@ -1,7 +1,7 @@
 {
   "$schema": "./node_modules/@angular-devkit/core/src/workspace/workspace-schema.json",
   "version": 1,
-  "newProjectRoot": "angular-starter",
+  "newProjectRoot": "bwm",
   "projects": {
     "template-appv6": {
       "root": "src",
@@ -28,10 +28,16 @@
               }
             ],
             "styles": [
-              "src/styles.css",
-              "node_modules/ngx-toastr/toastr.css"
+              "src/styles.scss",
+              "node_modules/ngx-toastr/toastr.css",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css"
             ],
-            "scripts": []
+            "scripts": [],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "./src/styles"
+              ]
+            }
           },
           "configurations": {
             "production": {
@@ -80,7 +86,7 @@
             "tsConfig": "src/tsconfig.spec.json",
             "scripts": [],
             "styles": [
-              "src/styles.css"
+              "src/styles.scss"
             ],
             "assets": [
               {
