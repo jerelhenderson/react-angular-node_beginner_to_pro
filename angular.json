@@ -154,8 +154,8 @@
   "cli": {},
   "schematics": {
     "@schematics/angular:component": {
-      "prefix": "app",
-      "styleext": "css"
+      "prefix": "bwm",
+      "styleext": "scss"
     },
     "@schematics/angular:directive": {
       "prefix": "app"
