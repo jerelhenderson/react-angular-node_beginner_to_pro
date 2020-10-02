@@ -7,6 +7,7 @@ import { RentalListComponent } from './rental-list/rental-list.component';
 import { RentalListItemComponent } from './rental-list-item/rental-list-item.component';
 import { RentalService } from "./shared/rental.service";
 import { RentalDetailComponent } from './rental-detail/rental-detail.component';
+import { HttpClientModule } from "@angular/common/http";
 
 
 const routes: Routes = [
@@ -24,10 +25,12 @@ const routes: Routes = [
         RentalListComponent,
         RentalListItemComponent,
         RentalDetailComponent
+
     ],
     imports: [
         CommonModule,
-        RouterModule.forChild(routes)
+        RouterModule.forChild(routes),
+        HttpClientModule
     ],
     providers: [
         RentalService
