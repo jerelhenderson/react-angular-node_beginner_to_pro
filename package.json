@@ -29,6 +29,7 @@
     "core-js": "^2.4.1",
     "express": "^4.17.2",
     "font-awesome": "^4.7.0",
+    "jsonwebtoken": "^8.2.1",
     "mongoose": "^6.1.8",
     "ngx-pipes": "^2.1.2",
     "ngx-toastr": "^10.1.0",

@@ -9,7 +9,13 @@ const userSchema = new Schema({
     rentals: [{type: Schema.Types.ObjectId, ref: 'Rental'}]
 });
 
-userSchema.pre('save', (next) => {
+userSchema.methods.hasSamePassword = function(requestedPassword) {
+    console.log(requestedPassword);
+    console.log(this.password);
+    return bcrypt.compareSync(requestedPassword, this.password);
+}
+
+userSchema.pre('save', function(next) {
     const user = this;
 
     bcrypt.genSalt(10, function(err, salt) {
@@ -18,6 +24,6 @@ userSchema.pre('save', (next) => {
             next();
         });
     });
-})
+});
 
 module.exports = mongoose.model('User', userSchema);

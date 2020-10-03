@@ -1,8 +1,37 @@
 const User = require('../models/user');
-const { normalizeErrors } = require('../helpers/mongoose')
+const { normalizeErrors } = require('../helpers/mongoose');
+const config = require('../config/dev')
+
+const jwt = require('jsonwebtoken');
 
 exports.auth = function(req, res) {
+    const { email, password } = req.body;
 
+    if(!email || !password) {
+        return res.status(422).send({errors: [{"title": 'Data Missing', "detail": 'Provide email and password!'}]})
+    }
+
+    User.findOne({email}, (err, user) => {
+        if (err) {
+            return res.status(422).send({errors: normalizeErrors(err.errors)});
+        }
+
+        if (!user) {
+            return res.status(422).send({errors: [{"title": 'Invalid user', "detail": 'User doesn\'t exist!'}]})
+        }
+
+        if (user.hasSamePassword(password)) {
+            const token = jwt.sign({
+                userId: user.id,
+                username: user.username,
+              }, config.JWT_SECRET, { expiresIn: '1h' });
+
+              return res.json(token);
+        } else {
+            console.log(`Email: ${user.email} Password: ${user.password}`);
+            return res.status(422).send({errors: [{"title": 'Incorrect data', "detail": 'Wrong email or password!'}]})
+        }
+    })
 }
 
 exports.register = function(req, res) {
