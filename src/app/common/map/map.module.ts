@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
-import { MapComponent } from './map.component';
 import { AgmCoreModule } from '@agm/core';
+import { CamelizePipe } from 'ngx-pipes';
+
+import { MapComponent } from './map.component';
 
 import { MapService } from './map.service';
 
@@ -16,7 +18,10 @@ import { MapService } from './map.service';
       apiKey: '***REMOVED***'
     })
   ],
-  providers: [MapService],
+  providers: [
+    MapService,
+    CamelizePipe
+  ],
   bootstrap: []
 })
 export class MapModule { }
