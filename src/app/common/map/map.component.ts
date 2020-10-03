@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MapService } from './map.service';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'bwm-map',
@@ -9,10 +10,12 @@ import { MapService } from './map.service';
 export class MapComponent implements OnInit {
   @Input() location: string;
 
+  isPositionError: boolean = false;
+
   lat: number = 51.678418;
   lng: number = 7.809007;
 
-  constructor(private mapService: MapService) { }
+  constructor(private mapService: MapService, private ref: ChangeDetectorRef) { }
 
   ngOnInit() {
   }
@@ -22,8 +25,11 @@ export class MapComponent implements OnInit {
       (coordinates) => {
         this.lat = coordinates.lat;
         this.lng = coordinates.lng;
+
+        this.ref.detectChanges;
+      }, () => {
+        this.isPositionError = true;
       }
     )
   }
-
 }
