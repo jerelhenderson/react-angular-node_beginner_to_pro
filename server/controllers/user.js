@@ -1,8 +1,7 @@
 const User = require('../models/user');
 const { normalizeErrors } = require('../helpers/mongoose');
-const config = require('../config/dev')
-
 const jwt = require('jsonwebtoken');
+const config = require('../config/dev')
 
 exports.auth = function(req, res) {
     const { email, password } = req.body;
@@ -28,7 +27,6 @@ exports.auth = function(req, res) {
 
               return res.json(token);
         } else {
-            console.log(`Email: ${user.email} Password: ${user.password}`);
             return res.status(422).send({errors: [{"title": 'Incorrect data', "detail": 'Wrong email or password!'}]})
         }
     })
@@ -67,4 +65,36 @@ exports.register = function(req, res) {
             return res.json({'registered': true});
         });
     });
+}
+
+exports.authMiddleware = function(req, res, next) {
+    const token = req.headers.authorization;
+
+    if (token) {
+        const user = parseToken(token);
+
+        User.findById(user.userId, function(err, user) {
+            if (err) {
+                return res.status(422).send({errors: normalizeErrors(err.errors)});
+            }
+
+            if (user) {
+                res.locals.user = user;
+                next();
+            } else {
+                return notAuthorized(res);
+            }
+        });
+    } else {
+        return notAuthorized(res);
+    }
+
+function parseToken(token) {
+        // Token format is: '{Bearer, fji439iufi23iu2fn2iufh2320f'}
+        return jwt.verify(token.split(' ')[1], config.JWT_SECRET);
+    }
+}
+
+function notAuthorized(res) {
+    return res.status(401).send({errors: "Not authorized", details: "You need to login to gain access."});
 }

@@ -10,8 +10,6 @@ const userSchema = new Schema({
 });
 
 userSchema.methods.hasSamePassword = function(requestedPassword) {
-    console.log(requestedPassword);
-    console.log(this.password);
     return bcrypt.compareSync(requestedPassword, this.password);
 }
 
