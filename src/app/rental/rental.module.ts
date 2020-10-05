@@ -12,8 +12,6 @@ import { RentalDetailComponent } from './rental-detail/rental-detail.component';
 
 import { RentalService } from "./shared/rental.service";
 
-
-
 const routes: Routes = [
     {path: 'rentals',
     component: RentalComponent,

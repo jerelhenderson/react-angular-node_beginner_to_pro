@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">BookWithMe</a>
+    <a class="navbar-brand" href="#" [routerLink]="['/rentals']" routerLinkActive="router-link-active" >BookWithMe</a>
     <form class="d-flex">
       <input class="form-control me-2 bwm-search" type="search" placeholder="Search" aria-label="Search">
       <button class="btn btn-outline-success btn-bwm-search" type="submit">Search</button>
@@ -10,8 +10,8 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav ml-auto">
-        <a class="nav-link active" aria-current="page" href="#">Login</a>
-        <a class="nav-link" href="#">Register</a>
+        <a class="nav-link active" aria-current="page" href="#" [routerLink]="['/login']" routerLinkActive="router-link-active" >Login</a>
+        <a class="nav-link" href="#" [routerLink]="['/register']" routerLinkActive="router-link-active" >Register</a>
       </div>
     </div>
   </div>
