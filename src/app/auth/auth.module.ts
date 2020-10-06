@@ -6,6 +6,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { AuthComponent } from './auth.component';
 
 import { AuthService } from './shared/auth.service';
 import { AuthGuard } from './shared/auth.guard';
@@ -20,7 +21,8 @@ export const routes: Routes = [
 @NgModule({
     declarations: [
       LoginComponent,
-      RegisterComponent
+      RegisterComponent,
+      AuthComponent
     ],
     imports: [
         RouterModule.forChild(routes),

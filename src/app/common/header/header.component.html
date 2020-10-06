@@ -20,12 +20,14 @@
                 <a class="nav-link" routerLink="/register" >Register</a>
             </li>
             </ng-container>
-            <li class="nav-item" *ngIf="authService.isAuthenticated()">
-                <a class="nav-link" >{{authService.getUsername()}}</a>
-            </li>
-            <li class="nav-item" *ngIf="authService.isAuthenticated()">
-            <a class="nav-link" (click)="logout()">Logout</a>
-            </li>
+            <ng-container *ngIf="authService.isAuthenticated()" >
+                <li class="nav-item">
+                    <a class="nav-link" >{{authService.getUsername()}}</a>
+                </li>
+                <li class="nav-item clickable">
+                <a class="nav-link" (click)="logout()">Logout</a>
+                </li>
+            </ng-container>
         </ul>
     </div>
   </div>
