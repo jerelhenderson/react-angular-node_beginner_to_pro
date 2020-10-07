@@ -9,7 +9,10 @@ router.get('/secret', UserController.authMiddleware, function(req, res) {
 })
 
 router.get('', (req, res) => {
-    Rental.find({}, (err, foundRentals) => {
+    Rental.find({})
+            .select('-bookings')
+            .exec(function(err, foundRentals) {
+
         res.json(foundRentals);
     });
 });
@@ -17,12 +20,13 @@ router.get('', (req, res) => {
 router.get('/:id', (req, res) => {
     const rentalId = req.params.id;
 
-    Rental.findById(rentalId, (err, foundRental) => {
+    Rental.findById(rentalId)
+            .populate('user', 'username -_id').populate('bookings', 'startAt endAt -_id')
+            .exec(function(err, foundRental) {
         if (err) {
-            res.status(422).send({errors: [{"title": 'Rental Error', "detail": 'Could not find rental!'}]})
+            return res.status(422).send({errors: [{"title": 'Rental Error', "detail": 'Could not find rental!'}]});
         }
-
-        res.json(foundRental)
+        return res.json(foundRental)
     });
 });
 

@@ -1,5 +1,6 @@
 const Booking = require('../models/booking');
 const Rental = require('../models/rental');
+const User = require('../models/user');
 const moment = require('moment');
 
 const { normalizeErrors } = require('../helpers/mongoose');
@@ -22,9 +23,21 @@ exports.createBooking = function(req, res) {
         }
 
         if (isValidBooking(booking, foundRental)) {
+            booking.user = user;
+            booking.rental = foundRental;
             foundRental.bookings.push(booking);
-            foundRental.save();
-            booking.save();
+
+            booking.save(function(err) {
+                if (err) {
+                    return res.status(422).send({errors: normalizeErrors(err.errors)});
+                }
+                foundRental.save();
+                // https://docs.mongodb.com/manual/reference/operator/update/push/
+                User.update({_id: user.id}, {$push: {bookings: booking}}, function(){});
+ 
+                return res.json({startAt: booking.startAt, endAt: booking.endAt});
+            });
+
         } else {
             return res.status(422).send({errors: [{"title": 'Invalid booking', "detail": 'These dates are already chosen!'}]})
         }
