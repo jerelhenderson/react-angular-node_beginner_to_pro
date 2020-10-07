@@ -14,6 +14,7 @@ import { RentalDetailBookingComponent } from './rental-detail/rental-detail-book
 
 import { RentalService } from "./shared/rental.service";
 import { HelperService } from "../common/service/helper.service";
+import { BookingService } from "../booking/shared/booking.service";
 
 import { AuthGuard } from "../auth/shared/auth.guard";
 import { FormsModule } from "@angular/forms";
@@ -46,7 +47,8 @@ const routes: Routes = [
     ],
     providers: [
         RentalService,
-        HelperService
+        HelperService,
+        BookingService
     ]
 })
 export class RentalModule {
