@@ -16,6 +16,7 @@ import { RentalService } from "./shared/rental.service";
 import { HelperService } from "../common/service/helper.service";
 
 import { AuthGuard } from "../auth/shared/auth.guard";
+import { FormsModule } from "@angular/forms";
 
 const routes: Routes = [
     {path: 'rentals',
@@ -40,7 +41,8 @@ const routes: Routes = [
         HttpClientModule,
         NgPipesModule,
         MapModule,
-        Daterangepicker
+        Daterangepicker,
+        FormsModule
     ],
     providers: [
         RentalService,
