@@ -77,7 +77,6 @@ exports.authMiddleware = function(req, res, next) {
             if (err) {
                 return res.status(422).send({errors: normalizeErrors(err.errors)});
             }
-
             if (user) {
                 res.locals.user = user;
                 next();

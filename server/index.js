@@ -11,7 +11,7 @@ const bookingRoutes = require('./routes/bookings')
 
 mongoose.connect(config.DB_URI).then(() => {
     const fakeDb = new FakeDb();
-    fakeDb.seedDb();
+    // fakeDb.seedDb();
 });
 
 const app = express();
