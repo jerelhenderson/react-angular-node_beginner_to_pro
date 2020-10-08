@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
+
 const Rental = require('../models/rental');
+const User = require('../models/user');
 
 const UserController = require('../controllers/user');
 
@@ -21,6 +23,23 @@ router.get('/:id', (req, res) => {
         }
         return res.json(foundRental)
     });
+});
+
+router.post('', UserController.authMiddleware, function(req, res) {
+    const { title, city, street, category, image, shared, bedrooms, description, dailyRate } = req.body;
+    const user = res.locals.user;
+
+    const rental = new Rental({ title, city, street, category, image, shared, bedrooms, description, dailyRate });
+    rental.user = user;
+
+    Rental.create(rental, function(err, newRental) {
+        if (err) {
+            return res.status(422).send({errors: normalizeErrors(err.errors)});
+        }
+        User.update({_id: user.id}, {$push: {rentals: newRental}}, function(){});
+
+        return res.json(newRental);
+    })
 });
 
 router.get('', (req, res) => {
