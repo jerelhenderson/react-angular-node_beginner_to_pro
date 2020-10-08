@@ -1,7 +1,8 @@
 import { Injectable } from "@angular/core";
 import { Observable } from 'rxjs';
-import { Rental } from "./rental.model";
-import { HttpClient } from '@angular/common/http'
+
+import { HttpClient } from '@angular/common/http';
+
 
 @Injectable()
 export class RentalService {
@@ -12,6 +13,10 @@ export class RentalService {
 	}
 
 	public getRentals(): Observable<any> {
-		return this.http.get('/api/v1/rentals')
+		return this.http.get('/api/v1/rentals');
+	}
+
+	public getRentalsByCity(city): Observable<any> {
+		return this.http.get(`/api/v1/rentals?city=${city}`);
 	}
 }
