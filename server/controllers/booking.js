@@ -34,13 +34,26 @@ exports.createBooking = function(req, res) {
                 foundRental.save();
                 // https://docs.mongodb.com/manual/reference/operator/update/push/
                 User.update({_id: user.id}, {$push: {bookings: booking}}, function(){});
- 
+
                 return res.json({startAt: booking.startAt, endAt: booking.endAt});
             });
 
         } else {
             return res.status(422).send({errors: [{"title": 'Invalid booking', "detail": 'These dates are already chosen!'}]})
         }
+    })
+}
+
+exports.getUserBookings = function (req, res) {
+    const user = res.locals.user;
+
+    Booking.where({user})
+    .populate('rental')
+    .exec(function(err, foundBookings) {
+        if (err) {
+            return res.status(422).send({errors: normalizeErrors(err.errors)});
+        }
+        return res.json(foundBookings);
     })
 }
 
