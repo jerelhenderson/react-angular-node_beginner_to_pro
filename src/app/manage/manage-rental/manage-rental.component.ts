@@ -1,4 +1,6 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { Rental } from '../../rental/shared/rental.model';
 import { RentalService } from '../../rental/shared/rental.service';
 
@@ -8,9 +10,12 @@ import { RentalService } from '../../rental/shared/rental.service';
     styleUrls: ['./manage-rental.component.scss']
 })
 export class ManageRentalComponent implements OnInit {
-    rentals: Rental[] = [];
+    rentals: Rental[];
+    rentalDeleteIndex: number;
+    errors: any[] = [];
 
-    constructor(private rentalService: RentalService) { }
+    constructor(private rentalService: RentalService,
+                private toastr: ToastrService) { }
 
     ngOnInit() {
         this.rentalService.getUserRentals().subscribe(
@@ -19,8 +24,17 @@ export class ManageRentalComponent implements OnInit {
             },
             () => {
 
-            }
-        )
+            })
     }
 
+    deleteRental(rentalId: string) {
+        this.rentalService.deleteRental(rentalId).subscribe(
+            () => {
+                this.rentals.splice(this.rentalDeleteIndex, 1);
+                this.rentalDeleteIndex = undefined;
+            },
+            (errorResponse: HttpErrorResponse) => {
+                this.toastr.error(errorResponse.error.errors[0].detail, 'Failed');
+            })
+    }
 }

@@ -6,12 +6,14 @@ import { NgPipesModule } from 'ngx-pipes';
 import { ManageComponent } from './manage.component';
 import { ManageRentalComponent } from './manage-rental/manage-rental.component';
 import { ManageBookingComponent } from './manage-booking/manage-booking.component';
+import { ManageRentalBookingComponent } from './manage-rental/manage-rental-booking/manage-rental-booking.component'
 
 import { AuthGuard } from '../auth/shared/auth.guard';
 
 import { RentalService } from '../rental/shared/rental.service';
 import { BookingService } from '../booking/shared/booking.service';
-import { FormatDatePipe } from '../common/pipes/format-date.pipe'
+import { FormatDatePipe } from '../common/pipes/format-date.pipe';
+
 
 export const routes: Routes = [
     {
@@ -29,7 +31,8 @@ export const routes: Routes = [
         ManageComponent,
         ManageRentalComponent,
         ManageBookingComponent,
-        FormatDatePipe
+        FormatDatePipe,
+        ManageRentalBookingComponent
     ],
     imports: [
         RouterModule.forChild(routes),
