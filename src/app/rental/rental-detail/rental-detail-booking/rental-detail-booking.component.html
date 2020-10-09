@@ -3,32 +3,40 @@
         ${{rental.dailyRate}} <span class="booking-per-night">per night</span>
     </h3>
     <hr>
-    <form #bookingForm="ngForm">
-        <label>Dates</label>
-        <input
-        type="text"
-        class="form-control daterangepicker-input" name="daterangeInput"
-        daterangepicker
-        [options]="options"
-        (selected)="selectedDate($event, daterange)" />
-        <div class="form-group">
-            <label for="guests">Guests</label>
+    <ng-container *ngIf="auth.isAuthenticated()">
+        <form #bookingForm="ngForm">
+            <label>Dates</label>
             <input
-            [(ngModel)]="newBooking.guests"
-            name="guests"
-            type="number"
-            class="form-control"
-            id="guests"
-            aria-describedby="emailHelp"
-            required>
+            type="text"
+            class="form-control daterangepicker-input" name="daterangeInput"
+            daterangepicker
+            [options]="options"
+            (selected)="selectedDate($event, daterange)" />
+            <div class="form-group">
+                <label for="guests">Guests</label>
+                <input
+                [(ngModel)]="newBooking.guests"
+                name="guests"
+                type="number"
+                class="form-control"
+                id="guests"
+                aria-describedby="emailHelp"
+                required>
+            </div>
+            </form>
+            <button
+            (click)="openConfirmModal(content)"
+            [disabled]="!bookingForm.form.valid || !newBooking.startAt || !newBooking.endAt"
+            class="btn btn-danger
+            btn-confirm btn-block">Reserve place now</button>
+            <hr>
+        </ng-container>
+
+        <div *ngIf="!auth.isAuthenticated()" class="login-first">
+            <a class="btn btn-bwm" routerLink="/login">
+            Login to book this rental today!</a>
         </div>
-    </form>
-    <button
-    (click)="openConfirmModal(content)"
-    [disabled]="!bookingForm.form.valid || !newBooking.startAt || !newBooking.endAt"
-    class="btn btn-danger
-    btn-confirm btn-block">Reserve place now</button>
-    <hr>
+
     <p class="booking-note-title">People are interested into this house</p>
     <p class="booking-note-text">
         More than 500 people checked this rental in last month.
