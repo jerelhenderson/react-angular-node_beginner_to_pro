@@ -1,16 +1,16 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
 # compiled output
-/dist
-/dist-server
-/tmp
-/out-tsc
+bwm-ng/dist
+bwm-ng/dist-server
+bwm-ng/tmp
+bwm-ng/out-tsc
 
 # dependencies
 bwm-ng/node_modules
 
 # IDEs and editors
-/.idea
+bwm-ng/.idea
 .project
 .classpath
 .c9/
@@ -26,18 +26,18 @@ bwm-ng/node_modules
 !.vscode/extensions.json
 
 # misc
-/.sass-cache
-/connect.lock
-/coverage
-/libpeerconnection.log
+bwm-ng/.sass-cache
+bwm-ng/connect.lock
+bwm-ng/coverage
+bwm-ng/libpeerconnection.log
 npm-debug.log
 yarn-error.log
 testem.log
-/typings
+bwm-ng/typings
 
 # e2e
-/e2e/*.js
-/e2e/*.map
+bwm-ng/e2e/*.js
+bwm-ng/e2e/*.map
 
 # System Files
 .DS_Store
