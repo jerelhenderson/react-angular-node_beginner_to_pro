@@ -7,7 +7,7 @@
 /out-tsc
 
 # dependencies
-/node_modules
+bwm-ng/node_modules
 
 # IDEs and editors
 /.idea
@@ -44,4 +44,5 @@ testem.log
 Thumbs.db
 
 #Secrets
-server/config/dev.js
+bwn-ng/server/config/dev.js
+bwm-ng/server/config/prod.js
